@@ -1,0 +1,65 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background-color: azure;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: max-content;
+    justify-content: center;
+}
+
+.lane1{
+    width: 100px;
+    height: 500px;background: rgb(255,255,255);
+    background: linear-gradient(170deg, rgba(255,255,255,1) 0%, rgba(231,196,255,1) 100%);
+    border:2px #8000807a solid
+}
+    
+.lane2{
+    width: 100px;
+    height: 500px;
+    background: rgb(255,255,255);
+    background: linear-gradient(170deg, rgba(255,255,255,1) 0%, rgba(231,196,255,1) 100%);
+    border:2px #8000807a solid}
+.lane3{
+    width: 100px;
+    height: 500px;
+    background: rgb(255,255,255);
+    background: linear-gradient(170deg, rgba(255,255,255,1) 0%, rgba(231,196,255,1) 100%);
+    border:2px #8000807a solid}
+
+.playarea{
+    width:100px;
+    border:2px solid black
+}
+
+.fallbox{
+    width:100px;
+    border-radius: 25%;
+    background-color: blueviolet;
+    opacity: 0
+}
+
+.fallingAnimation{
+    animation-name: falling;
+    animation-duration:1s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes falling {
+0%{
+    transform:translateY(-800px);
+    opacity: 1;
+}
+90%{
+    opacity: 1;
+}
+100%{
+    transform:translateY(0px);
+    opacity: 0;
+}
+}
