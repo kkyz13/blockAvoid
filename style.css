@@ -20,7 +20,7 @@ h1 {
   justify-content: center;
 }
 
-.lane1 {
+.lane {
   width: 100px;
   height: 500px;
   background: rgb(255, 255, 255);
@@ -30,29 +30,7 @@ h1 {
     rgba(231, 196, 255, 1) 100%
   );
   border: 2px #8000807a solid;
-}
-
-.lane2 {
-  width: 100px;
-  height: 500px;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    170deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(231, 196, 255, 1) 100%
-  );
-  border: 2px #8000807a solid;
-}
-.lane3 {
-  width: 100px;
-  height: 500px;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    170deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(231, 196, 255, 1) 100%
-  );
-  border: 2px #8000807a solid;
+  transition: linear-gradient 3s;
 }
 
 .playarea {
@@ -103,4 +81,33 @@ h1 {
 }
 .active {
   background-color: yellow;
+}
+
+.laneactive {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    170deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgb(255, 229, 114) 100%
+  );
+  border: 2px #b40e507a solid;
+}
+
+.collision {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    170deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgb(193, 0, 0) 100%
+  );
+  border: 2px #b40e507a solid;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
+  }
 }

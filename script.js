@@ -12,58 +12,65 @@ fallArray.forEach((boxEntry) => {
   });
 });
 
-const playarea = document.querySelectorAll(".playarea"); //grabs the lanes as an array
-let activeLane = 0
+const laneArray = document.querySelectorAll(".lane"); // grabs the lanes as an array
+const playAreaArray = document.querySelectorAll(".playarea"); //grabs the playAreaArray bottom selector as an array
+let activeLaneIdx = 0;
 
 //CONTROLLER//
-window.addEventListener("keydown", moveMe)
+window.addEventListener("keydown", moveMe);
 function moveMe(e) {
-  if (e.key === "ArrowLeft"){
-    if (activeLane === 0){
-//Additional Goal: Selector loops around the lane
-      activeLane = 0
-    }else{
-    playarea.forEach((laneEntry) =>{
-      laneEntry.classList.remove("active")
-    }); 
-    activeLane --
-    playarea[activeLane].classList.add("active")
-    laneActiver()
-  }
-  } else if (e.key ==="ArrowRight"){
-    if (activeLane === 2){
-      activeLane = 2
-    }else{
-      playarea.forEach((laneEntry) =>{
-        laneEntry.classList.remove("active")
+  if (e.key === "ArrowLeft") {
+    if (activeLaneIdx === 0) {
+      //Additional Goal: Selector loops around the lane
+      activeLaneIdx = 0;
+    } else {
+      playAreaArray.forEach((laneEntry) => {
+        laneEntry.classList.remove("active");
       });
-      activeLane ++;
-      playarea[activeLane].classList.add("active");
-      laneActiver()
-      }
-  return}
-}
-
-//LaneActiver
-
-function laneActiver(){
-  fallArray.forEach((laneEntry) =>{
-    laneEntry.classList.remove("activer")
-  });
-  for (let j = activeLane; j <= fallArray.length-1;){
-    fallArray[j].classList.add("activer")
-    j += 3
+      activeLaneIdx--;
+      playAreaArray[activeLaneIdx].classList.add("active");
+      laneActiver();
+    }
+  } else if (e.key === "ArrowRight") {
+    if (activeLaneIdx === 2) {
+      activeLaneIdx = 2;
+    } else {
+      playAreaArray.forEach((laneEntry) => {
+        laneEntry.classList.remove("active");
+      });
+      activeLaneIdx++;
+      playAreaArray[activeLaneIdx].classList.add("active");
+      laneActiver();
+    }
+    return;
   }
-  
 }
 
-laneActiver()
+function laneActive() {
+  laneArray.forEach((lane) => {
+    lane.classList.remove("laneactive");
+  });
+  laneArray[activeLaneIdx].classList.add("laneactive");
+}
+function laneActiver() {
+  //adds the activer for aiding collision detection
+  laneActive();
+  fallArray.forEach((laneEntry) => {
+    laneEntry.classList.remove("activer");
+  });
+  for (let j = activeLaneIdx; j <= fallArray.length - 1; ) {
+    fallArray[j].classList.add("activer");
+    j += 3;
+  }
+}
+
+laneActiver();
 function randomLane() {
   return Math.ceil(Math.random() * 9);
 }
 
 function dropBoxOnly() {
-  fallArray[randomLane()-1].classList.add("fallingAnimation");
+  fallArray[randomLane() - 1].classList.add("fallingAnimation");
   //   fallArray[randomLane() - 1].classList.add("fallingAnimation");
   //   setTimeout(function () {
   //     AnimRemoval();
@@ -76,40 +83,41 @@ function dropBoxOnly() {
 
 function gameStart() {
   delay(500);
-  setInterval(collisionDetect, 5);
-  setInterval(dropBoxOnly,200);
-  console.log("GameStart!")
+  setInterval(collisionDetect, 1);
+  setInterval(dropBoxOnly, 200);
+  console.log("GameStart!");
 }
 const startBtn = document.querySelector("#start");
 startBtn.addEventListener("click", gameStart);
 
-
 function gameLose() {
+  //can't seem to get this to work
   const dropBox = setInterval(dropBoxOnly, 200);
-  clearInterval(dropBox)
+  clearInterval(dropBox);
   console.log("You lose");
 }
 
 const stopBtn = document.querySelector("#stop");
-stopBtn.addEventListener("click", gameLose)
+stopBtn.addEventListener("click", gameLose);
 
 //the kill line is at y = 557px, bottom  = 582px
-//p1 top left = 348 (width 104) p2 top left = 448px p3 top left = 548px
+//xpos p1 top left = 348 (width 104) p2 top left = 448px p3 top left = 548px
 
-function collisionDetect(){
+function collisionDetect() {
   fallArray.forEach((box) => {
-    boxCollisionDetect(box)
-  })
+    boxCollisionDetect(box);
+  });
 }
 function boxCollisionDetect(droppingBox) {
-  let box = droppingBox.getBoundingClientRect()
+  let box = droppingBox.getBoundingClientRect();
 
   // console.log(droppingBox.classList)
-  if (box.y > 557 && box.y < 570 && droppingBox.classList.contains("activer")) {
+  if (box.y > 555 && box.y < 570 && droppingBox.classList.contains("activer")) {
     console.log("COLLISION");
+    laneArray[activeLaneIdx].classList.add("collision");
   }
 }
-const box2 = document.querySelector(".box2")
+const box2 = document.querySelector(".box2");
 // boxCollisionDetect(box2)
 //DEBUGGER ------------
 // const box1 = document.querySelector(".p3");
