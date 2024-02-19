@@ -9,17 +9,15 @@ fallArray.forEach((boxEntry) => {
   //this adds animationend to all the .fallbox
   boxEntry.addEventListener("animationend", () => {
     boxEntry.classList.remove("fallingAnimation");
-    console.log("removed");
   });
 });
 
 const playarea = document.querySelectorAll(".playarea"); //grabs the lanes as an array
-const laneActive = document.querySelector(".active"); //grabs the active lane, can only have one active
-
 let activeLane = 0
 
-window.addEventListener("keydown", function(e){
-
+//CONTROLLER//
+window.addEventListener("keydown", moveMe)
+function moveMe(e) {
   if (e.key === "ArrowLeft"){
     if (activeLane === 0){
 //Additional Goal: Selector loops around the lane
@@ -30,6 +28,7 @@ window.addEventListener("keydown", function(e){
     }); 
     activeLane --
     playarea[activeLane].classList.add("active")
+    laneActiver()
   }
   } else if (e.key ==="ArrowRight"){
     if (activeLane === 2){
@@ -40,27 +39,31 @@ window.addEventListener("keydown", function(e){
       });
       activeLane ++;
       playarea[activeLane].classList.add("active");
+      laneActiver()
       }
   return}
-});
+}
 
-// function moveMe(e) {
+//LaneActiver
 
-  // for (entry of playarea) {
-    // if (e.key === "KeyLeft"){
-    //   console.log("LEFT")
-    // }
-//   }
-//   ;
-// }
+function laneActiver(){
+  fallArray.forEach((laneEntry) =>{
+    laneEntry.classList.remove("activer")
+  });
+  for (let j = activeLane; j <= fallArray.length-1;){
+    fallArray[j].classList.add("activer")
+    j += 3
+  }
+  
+}
 
-
+laneActiver()
 function randomLane() {
   return Math.ceil(Math.random() * 9);
 }
 
 function dropBoxOnly() {
-  fallArray[1].classList.add("fallingAnimation");
+  fallArray[randomLane()-1].classList.add("fallingAnimation");
   //   fallArray[randomLane() - 1].classList.add("fallingAnimation");
   //   setTimeout(function () {
   //     AnimRemoval();
@@ -71,13 +74,9 @@ function dropBoxOnly() {
 //   fallArray[randomLane() - 1].classList.remove("fallingAnimation");
 // }, 1000);
 
-function detectOverlapping() {} // code that detects if the box overlaps with a moving box
-const box2 = document.querySelector(".box2")
-
-
 function gameStart() {
   delay(500);
-  setInterval(collisionDetect(box2), 500);
+  setInterval(collisionDetect, 5);
   setInterval(dropBoxOnly,200);
   console.log("GameStart!")
 }
@@ -88,7 +87,7 @@ startBtn.addEventListener("click", gameStart);
 function gameLose() {
   const dropBox = setInterval(dropBoxOnly, 200);
   clearInterval(dropBox)
-  alert("You lose");
+  console.log("You lose");
 }
 
 const stopBtn = document.querySelector("#stop");
@@ -97,13 +96,21 @@ stopBtn.addEventListener("click", gameLose)
 //the kill line is at y = 557px, bottom  = 582px
 //p1 top left = 348 (width 104) p2 top left = 448px p3 top left = 548px
 
-function collisionDetect(droppingBox) {
+function collisionDetect(){
+  fallArray.forEach((box) => {
+    boxCollisionDetect(box)
+  })
+}
+function boxCollisionDetect(droppingBox) {
   let box = droppingBox.getBoundingClientRect()
-  console.log("I'm checking") 
-  if (box.y === 557 && droppingBox.classList.contains("active")) {
-    gameLose();
+
+  // console.log(droppingBox.classList)
+  if (box.y > 557 && box.y < 570 && droppingBox.classList.contains("activer")) {
+    console.log("COLLISION");
   }
 }
+const box2 = document.querySelector(".box2")
+// boxCollisionDetect(box2)
 //DEBUGGER ------------
 // const box1 = document.querySelector(".p3");
 // let rect = box1.getBoundingClientRect();
