@@ -1,4 +1,4 @@
-☐ The code for **a working game that meets or exceeds the above technical requirements, built by you**.
+avoidBlock - The Game
 
 - **A `README.md` file** with these sections:
 
