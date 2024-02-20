@@ -81,8 +81,10 @@ function dropBoxOnly() {
 //   fallArray[randomLane() - 1].classList.remove("fallingAnimation");
 // }, 1000);
 
+let gameRunning = false;
 function gameStart() {
-  delay(500);
+  gameRunning = true;
+  delay(1000);
   setInterval(collisionDetect, 1);
   setInterval(dropBoxOnly, 200);
   console.log("GameStart!");
@@ -95,6 +97,7 @@ function gameLose() {
   const dropBox = setInterval(dropBoxOnly, 200);
   clearInterval(dropBox);
   console.log("You lose");
+  gameRunning = false;
 }
 
 const stopBtn = document.querySelector("#stop");
@@ -114,11 +117,12 @@ function boxCollisionDetect(droppingBox) {
   // console.log(droppingBox.classList)
   if (box.y > 555 && box.y < 570 && droppingBox.classList.contains("activer")) {
     console.log("COLLISION");
+    gameLose();
     laneArray[activeLaneIdx].classList.add("collision");
+    return true;
   }
 }
-const box2 = document.querySelector(".box2");
-// boxCollisionDetect(box2)
+
 //DEBUGGER ------------
 // const box1 = document.querySelector(".p3");
 // let rect = box1.getBoundingClientRect();
