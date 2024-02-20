@@ -85,8 +85,8 @@ let gameRunning = false;
 function gameStart() {
   gameRunning = true;
   delay(1000);
-  setInterval(collisionDetect, 1);
-  setInterval(dropBoxOnly, 200);
+  setInterval(collisionDetect, 10);
+  setInterval(dropBoxOnly, 240);
   console.log("GameStart!");
 }
 const startBtn = document.querySelector("#start");
@@ -115,7 +115,8 @@ function boxCollisionDetect(droppingBox) {
   let box = droppingBox.getBoundingClientRect();
 
   // console.log(droppingBox.classList)
-  if (box.y > 555 && box.y < 570 && droppingBox.classList.contains("activer")) {
+  if (box.y > 555 && box.y < 582 && droppingBox.classList.contains("activer")) { 
+    //maybe I can invert this logic to just check the active lane, not the falling box
     console.log("COLLISION");
     gameLose();
     laneArray[activeLaneIdx].classList.add("collision");
