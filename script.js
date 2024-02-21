@@ -4,6 +4,7 @@ const playAreaArray = document.querySelectorAll(".playarea"); //grabs the playAr
 let activeLaneIdx = 0;
 let score = 0;
 let fallSpeed = 1;
+let gameRunning = false;
 
 function delay(milliseconds) {
   return new Promise((resolve) => {
@@ -23,6 +24,9 @@ fallArray.forEach((boxEntry) => {
 //CONTROLLER//
 window.addEventListener("keydown", moveMe);
 function moveMe(e) {
+  if (e.code === "Space" && gameRunning === false) {
+    gameStart();
+  }
   if (e.key === "ArrowLeft") {
     if (activeLaneIdx === 0) {
       //Additional Goal: Selector loops around the lane
@@ -91,11 +95,13 @@ function dropBoxOnly() {
 // }, 1000);
 
 function gameStart() {
+  gameRunning = true;
   score = 0;
   laneActiver();
   startBtn.removeEventListener("click", gameStart);
-  if ((clearLaneCollision = document.querySelector(".collisioned"))) {
-    clearLaneCollision.classList.remove("collision", "collisioned");
+  clearLaneCollision = document.querySelectorAll(".collision");
+  for (entry of clearLaneCollision) {
+    entry.classList.remove("collision", "collisioned");
   }
   delay(1000);
   setInterval(collisionDetect, 1);
@@ -103,12 +109,10 @@ function gameStart() {
   startSpeed = setInterval(speedUp, 2000);
   startDropbox = setInterval(dropBoxOnly, 200);
 }
-
 const startBtn = document.querySelector("#start");
 startBtn.addEventListener("click", gameStart);
 
 function gameLose() {
-  startBtn.addEventListener("click", gameStart);
   fallArray.forEach((laneEntry) => {
     laneEntry.classList.remove("fallingAnimation", "boxactive");
     laneEntry.removeAttribute("style");
@@ -118,6 +122,10 @@ function gameLose() {
   clearInterval(startSpeed);
   fallSpeed = 1;
   console.log("You lose");
+  gameRunning = false;
+  setTimeout(() => {
+    startBtn.addEventListener("click", gameStart);
+  }, 750);
 }
 
 const stopBtn = document.querySelector("#stop");
@@ -143,7 +151,6 @@ function boxCollisionDetect(droppingBox) {
     laneArray[activeLaneIdx].classList.add("collision");
     setTimeout(function () {
       const collided = document.querySelector(".collision");
-      console.log(collided);
       collided.classList.add("collisioned");
     }, 500);
   }

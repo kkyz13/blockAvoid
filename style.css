@@ -12,12 +12,12 @@ body {
 h1 {
   margin: 5px;
   text-align: center;
-  animation: slide-bottom 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
+  animation: slide-bottom 0.5s cubic-bezier(0.48, 0.07, 0.1, 1.19) both;
 }
 
 @keyframes slide-bottom {
   0% {
-    transform: translateY(-100px);
+    transform: translateY(-200px);
   }
   100% {
     transform: translateY(0);
@@ -41,8 +41,10 @@ h1 {
   padding: 20px;
   margin-left: 2em;
   background-color: rgb(134, 134, 134);
-  max-height: 70px;
+  max-height: 2.5em;
   border-radius: 25px;
+  animation: slide-bottom 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
+  animation-delay: 75ms;
 }
 .lane {
   width: 100px;
