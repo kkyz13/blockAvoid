@@ -1,34 +1,42 @@
+const fallArray = document.querySelectorAll(".fallbox"); //this is to grab all fallbox inside HTML
+const laneArray = document.querySelectorAll(".lane"); // grabs the lanes as an array
+const playAreaArray = document.querySelectorAll(".playarea"); //grabs the playAreaArray bottom selector as an array
+let activeLaneIdx = 0;
+let score = 0;
+let fallSpeed = 1;
+let gameRunning = false;
+
 function delay(milliseconds) {
   return new Promise((resolve) => {
     setTimeout(resolve, milliseconds);
   });
 }
 
-const fallArray = document.querySelectorAll(".fallbox"); //this is to grab all fallbox inside HTML
 fallArray.forEach((boxEntry) => {
+  score = 1;
   //this adds animationend to all the .fallbox
   boxEntry.addEventListener("animationend", () => {
     boxEntry.classList.remove("fallingAnimation");
+    score++;
   });
 });
-
-const laneArray = document.querySelectorAll(".lane"); // grabs the lanes as an array
-const playAreaArray = document.querySelectorAll(".playarea"); //grabs the playAreaArray bottom selector as an array
-let activeLaneIdx = 0;
 
 //CONTROLLER//
 window.addEventListener("keydown", moveMe);
 function moveMe(e) {
+  if (e.code === "Space" && gameRunning === false) {
+    gameStart();
+  }
   if (e.key === "ArrowLeft") {
     if (activeLaneIdx === 0) {
       //Additional Goal: Selector loops around the lane
       activeLaneIdx = 0;
     } else {
       playAreaArray.forEach((laneEntry) => {
-        laneEntry.classList.remove("active");
+        laneEntry.classList.remove("playactive");
       });
       activeLaneIdx--;
-      playAreaArray[activeLaneIdx].classList.add("active");
+      playAreaArray[activeLaneIdx].classList.add("playactive");
       laneActiver();
     }
   } else if (e.key === "ArrowRight") {
@@ -36,10 +44,10 @@ function moveMe(e) {
       activeLaneIdx = 2;
     } else {
       playAreaArray.forEach((laneEntry) => {
-        laneEntry.classList.remove("active");
+        laneEntry.classList.remove("playactive");
       });
       activeLaneIdx++;
-      playAreaArray[activeLaneIdx].classList.add("active");
+      playAreaArray[activeLaneIdx].classList.add("playactive");
       laneActiver();
     }
     return;
@@ -53,22 +61,27 @@ function laneActive() {
   laneArray[activeLaneIdx].classList.add("laneactive");
 }
 function laneActiver() {
-  //adds the activer for aiding collision detection
+  //adds an "eventlistener" boxactive for aiding collision detection
   laneActive();
   fallArray.forEach((laneEntry) => {
-    laneEntry.classList.remove("activer");
+    laneEntry.classList.remove("boxactive");
   });
   for (let j = activeLaneIdx; j <= fallArray.length - 1; ) {
-    fallArray[j].classList.add("activer");
+    fallArray[j].classList.add("boxactive");
     j += 3;
   }
 }
 
-laneActiver();
 function randomLane() {
   return Math.ceil(Math.random() * 9);
 }
 
+function speedUp() {
+  for (boxEntry of fallArray) {
+    boxEntry.style.animationDuration = `${fallSpeed}s`;
+  }
+  fallSpeed -= 0.05;
+}
 function dropBoxOnly() {
   fallArray[randomLane() - 1].classList.add("fallingAnimation");
   //   fallArray[randomLane() - 1].classList.add("fallingAnimation");
@@ -81,23 +94,38 @@ function dropBoxOnly() {
 //   fallArray[randomLane() - 1].classList.remove("fallingAnimation");
 // }, 1000);
 
-let gameRunning = false;
 function gameStart() {
   gameRunning = true;
+  score = 0;
+  laneActiver();
+  startBtn.removeEventListener("click", gameStart);
+  clearLaneCollision = document.querySelectorAll(".collision");
+  for (entry of clearLaneCollision) {
+    entry.classList.remove("collision", "collisioned");
+  }
   delay(1000);
-  setInterval(collisionDetect, 10);
-  setInterval(dropBoxOnly, 240);
-  console.log("GameStart!");
+  setInterval(collisionDetect, 1);
+  setInterval(scoreCounter, 200);
+  startSpeed = setInterval(speedUp, 2000);
+  startDropbox = setInterval(dropBoxOnly, 200);
 }
 const startBtn = document.querySelector("#start");
 startBtn.addEventListener("click", gameStart);
 
 function gameLose() {
-  //can't seem to get this to work
-  const dropBox = setInterval(dropBoxOnly, 200);
-  clearInterval(dropBox);
+  fallArray.forEach((laneEntry) => {
+    laneEntry.classList.remove("fallingAnimation", "boxactive");
+    laneEntry.removeAttribute("style");
+    // laneEntry.classList.remove("fallingAnimation");
+  });
+  clearInterval(startDropbox);
+  clearInterval(startSpeed);
+  fallSpeed = 1;
   console.log("You lose");
   gameRunning = false;
+  setTimeout(() => {
+    startBtn.addEventListener("click", gameStart);
+  }, 750);
 }
 
 const stopBtn = document.querySelector("#stop");
@@ -113,17 +141,25 @@ function collisionDetect() {
 }
 function boxCollisionDetect(droppingBox) {
   let box = droppingBox.getBoundingClientRect();
-
-  // console.log(droppingBox.classList)
-  if (box.y > 555 && box.y < 582 && droppingBox.classList.contains("activer")) { 
-    //maybe I can invert this logic to just check the active lane, not the falling box
+  if (
+    box.y > 555 &&
+    box.y < 582 &&
+    droppingBox.classList.contains("boxactive")
+  ) {
     console.log("COLLISION");
     gameLose();
     laneArray[activeLaneIdx].classList.add("collision");
-    return true;
+    setTimeout(function () {
+      const collided = document.querySelector(".collision");
+      collided.classList.add("collisioned");
+    }, 500);
   }
 }
 
+function scoreCounter() {
+  scoreWriter = document.querySelector("#score");
+  scoreWriter.innerText = score;
+}
 //DEBUGGER ------------
 // const box1 = document.querySelector(".p3");
 // let rect = box1.getBoundingClientRect();

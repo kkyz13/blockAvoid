@@ -7,27 +7,32 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Game Box Test</h1>
-
+    <h1>blockAvoid</h1>
     <div class="container">
-      <div class="lane">1</div>
-      <div class="lane">2</div>
-      <div class="lane">3</div>
-      <div class="playarea p1 active">K</div>
-      <div class="playarea p2">K</div>
-      <div class="playarea p3">K</div>
-      <div class="fallbox box1">1</div>
-      <div class="fallbox box2">2</div>
-      <div class="fallbox box3">3</div>
-      <div class="fallbox box4">4</div>
-      <div class="fallbox box5">5</div>
-      <div class="fallbox box6">6</div>
-      <div class="fallbox box7">7</div>
-      <div class="fallbox box8">8</div>
-      <div class="fallbox box9">9</div>
+      <div class="gamegrid">
+        <div class="lane laneactive"></div>
+        <div class="lane"></div>
+        <div class="lane"></div>
+        <div class="playarea playactive">&nbsp;</div>
+        <div class="playarea">&nbsp;</div>
+        <div class="playarea">&nbsp;</div>
+        <div class="fallbox box1">&nbsp;</div>
+        <div class="fallbox box2">&nbsp;</div>
+        <div class="fallbox box3">&nbsp;</div>
+        <div class="fallbox box4">&nbsp;</div>
+        <div class="fallbox box5">&nbsp;</div>
+        <div class="fallbox box6">&nbsp;</div>
+        <div class="fallbox box7">&nbsp;</div>
+        <div class="fallbox box8">&nbsp;</div>
+        <div class="fallbox box9">&nbsp;</div>
+      </div>
+      <div class="scorecontainer">
+        Score: <br />
+        <p id="score"></p>
+      </div>
     </div>
     <button id="start">Start</button>
-    <button id="stop">Stop</button>
+    <!-- <button id="stop">Stop</button> -->
     <script src="script.js"></script>
   </body>
 </html>
