@@ -11,15 +11,39 @@ body {
 
 h1 {
   margin: 5px;
+  text-align: center;
+  animation: slide-bottom 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
+}
+
+@keyframes slide-bottom {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 .container {
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+}
+.gamegrid {
   display: grid;
-  margin: 0px;
+  margin-left: 100px;
   grid-template-columns: repeat(3, 100px);
   grid-template-rows: max-content;
   justify-content: center;
+  max-width: 312px;
 }
 
+.scorecontainer {
+  padding: 20px;
+  margin-left: 2em;
+  background-color: rgb(134, 134, 134);
+  max-height: 70px;
+  border-radius: 25px;
+}
 .lane {
   width: 100px;
   height: 500px;
@@ -34,10 +58,25 @@ h1 {
   transition-duration: 0.2s;
 }
 
+.laneactive {
+  background: rgb(251, 255, 200);
+  /* background: linear-gradient(
+    170deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgb(255, 229, 114) 100%
+  ); */
+  border: 2px #b40e507a solid;
+}
 .playarea {
   width: 100px;
   border: 2px solid black;
   background-color: rgb(71, 36, 66);
+  transition-property: background-color;
+  transition-duration: 0.2s;
+}
+
+.playactive {
+  background-color: yellow;
 }
 
 .fallbox {
@@ -88,19 +127,6 @@ h1 {
   border-radius: 5px;
   padding: 15px 32px;
 }
-.active {
-  background-color: yellow;
-}
-
-.laneactive {
-  background: rgb(251, 255, 200);
-  /* background: linear-gradient(
-    170deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgb(255, 229, 114) 100%
-  ); */
-  border: 2px #b40e507a solid;
-}
 
 .collision {
   background: rgb(255, 44, 44);
@@ -114,5 +140,5 @@ h1 {
 }
 
 .collisioned {
-  background: rgb(255, 166, 166);
+  background: rgba(255, 114, 114, 0.785);
 }
