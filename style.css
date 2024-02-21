@@ -46,10 +46,19 @@ h1 {
   animation: slide-bottom 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
   animation-delay: 75ms;
 }
+.highscorecontainer {
+  padding: 20px;
+  margin-left: 2em;
+  background-color: rgb(134, 134, 134);
+  max-height: 2.5em;
+  border-radius: 25px;
+  animation: slide-bottom 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
+  animation-delay: 100ms;
+}
 .lane {
   width: 100px;
   height: 500px;
-  background: rgb(243, 194, 255);
+  background: rgb(194, 222, 255);
   /* background: linear-gradient(
     170deg,
     rgba(255, 255, 255, 1) 0%,
@@ -84,7 +93,7 @@ h1 {
 .fallbox {
   width: 100px;
   border-radius: 25%;
-  background-color: rgba(137, 43, 226, 0.596);
+  background-color: rgba(243, 0, 0, 0.596);
   opacity: 0;
 }
 
@@ -109,17 +118,22 @@ h1 {
   }
 }
 
-#start {
-  background-color: rgb(181, 203, 149);
-  color: white;
+.start {
+  background-color: rgb(176, 226, 101);
+  color: black;
   font-weight: 800;
   border: none;
   border-radius: 5px;
   padding: 15px 32px;
+  transition-duration: 0.25s
 }
-#start:hover {
+.start:hover {
   background-color: yellow;
   color: black;
+}
+
+.inactive {
+  background-color: rgb(110, 110, 110);
 }
 #stop {
   background-color: rgb(203, 89, 89);

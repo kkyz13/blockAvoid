@@ -96,6 +96,7 @@ function gameStart() {
   gameRunning = true;
   score = 0;
   laneActiver();
+  startBtn.classList.add("inactive")
   startBtn.removeEventListener("click", gameStart);
   clearLaneCollision = document.querySelectorAll(".collision");
   for (entry of clearLaneCollision) {
@@ -107,7 +108,7 @@ function gameStart() {
   startSpeed = setInterval(speedUp, 2000);
   startDropbox = setInterval(dropBoxOnly, 200);
 }
-const startBtn = document.querySelector("#start");
+const startBtn = document.querySelector(".start");
 startBtn.addEventListener("click", gameStart);
 
 function gameLose() {
@@ -120,31 +121,30 @@ function gameLose() {
   clearInterval(startSpeed);
   fallSpeed = 1;
   console.log("You lose");
-  gameRunning = false;
+  
   setTimeout(() => {
     startBtn.addEventListener("click", gameStart);
+    startBtn.classList.remove("inactive")
+    gameRunning = false;
   }, 750);
 }
 
 // const stopBtn = document.querySelector("#stop");
 // stopBtn.addEventListener("click", gameLose);
 
-//the kill line is at y = 557px, bottom  = 582px
-//xpos p1 top left = 348 (width 104) p2 top left = 448px p3 top left = 548px
-
 function collisionDetect() {
   fallArray.forEach((box) => {
-    boxCollisionDetect(box);
+    boxCollisionDetect(box, getPlayAreaY());
   });
 }
-function boxCollisionDetect(droppingBox) {
+function boxCollisionDetect(droppingBox, colliderArea) {
   let box = droppingBox.getBoundingClientRect();
   if (
-    box.y > 555 &&
-    box.y < 582 &&
+    box.y > colliderArea[0] &&
+    box.y < colliderArea[1] &&
     droppingBox.classList.contains("boxactive")
   ) {
-    console.log("COLLISION");
+    // console.log("COLLISION");
     gameLose();
     laneArray[activeLaneIdx].classList.add("collision");
     setTimeout(function () {
@@ -153,13 +153,19 @@ function boxCollisionDetect(droppingBox) {
     }, 500);
   }
 }
-
+function getPlayAreaY() { //returns an array
+  let playArea = document.querySelector(".playarea")
+  let boxDimension = playArea.getBoundingClientRect();
+  let yTop = boxDimension.y;
+  let yBottom = boxDimension.y+boxDimension.height;
+  return [yTop,yBottom]
+}
 function scoreCounter() {
   scoreWriter = document.querySelector("#score");
   scoreWriter.innerText = score;
 }
 //DEBUGGER ------------
-// const box1 = document.querySelector(".p3");
+// const box1 = document.querySelector(".playarea");
 // let rect = box1.getBoundingClientRect();
 // for (const key in rect) {
 //   if (typeof rect[key] !== "function") {
