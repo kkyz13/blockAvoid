@@ -29,28 +29,26 @@ function moveMe(e) {
   }
   if (e.key === "ArrowLeft") {
     if (activeLaneIdx === 0) {
-      //Additional Goal: Selector loops around the lane
-      activeLaneIdx = 0;
-    } else {
+      activeLaneIdx = 3;
+    } 
       playAreaArray.forEach((laneEntry) => {
         laneEntry.classList.remove("playactive");
       });
       activeLaneIdx--;
       playAreaArray[activeLaneIdx].classList.add("playactive");
       laneActiver();
-    }
+    
   } else if (e.key === "ArrowRight") {
     if (activeLaneIdx === 2) {
-      activeLaneIdx = 2;
-    } else {
+      activeLaneIdx = -1;
+    } 
       playAreaArray.forEach((laneEntry) => {
         laneEntry.classList.remove("playactive");
       });
       activeLaneIdx++;
       playAreaArray[activeLaneIdx].classList.add("playactive");
       laneActiver();
-    }
-    return;
+    
   }
 }
 
@@ -128,8 +126,8 @@ function gameLose() {
   }, 750);
 }
 
-const stopBtn = document.querySelector("#stop");
-stopBtn.addEventListener("click", gameLose);
+// const stopBtn = document.querySelector("#stop");
+// stopBtn.addEventListener("click", gameLose);
 
 //the kill line is at y = 557px, bottom  = 582px
 //xpos p1 top left = 348 (width 104) p2 top left = 448px p3 top left = 548px
