@@ -53,7 +53,7 @@ function laneActive() {
   laneArray[activeLaneIdx].classList.add("laneactive");
 }
 function laneActiver() {
-  //adds the activer for aiding collision detection
+  //adds an "eventlistener" activer for aiding collision detection
   laneActive();
   fallArray.forEach((laneEntry) => {
     laneEntry.classList.remove("activer");
@@ -81,21 +81,26 @@ function dropBoxOnly() {
 //   fallArray[randomLane() - 1].classList.remove("fallingAnimation");
 // }, 1000);
 
-let gameRunning = false;
 function gameStart() {
-  gameRunning = true;
+  startBtn.removeEventListener("click", gameStart);
+  if ((clearLaneCollision = document.querySelector(".collisioned"))) {
+    clearLaneCollision.classList.remove("collision", "collisioned");
+  }
   delay(1000);
   setInterval(collisionDetect, 1);
-  setInterval(dropBoxOnly, 200);
-  console.log("GameStart!");
+  startDropbox = setInterval(dropBoxOnly, 200);
 }
+
 const startBtn = document.querySelector("#start");
 startBtn.addEventListener("click", gameStart);
 
 function gameLose() {
-  //can't seem to get this to work
-  const dropBox = setInterval(dropBoxOnly, 200);
-  clearInterval(dropBox);
+  startBtn.addEventListener("click", gameStart);
+  fallArray.forEach((laneEntry) => {
+    laneEntry.classList.remove("activer");
+    laneEntry.classList.remove("fallingAnimation");
+  });
+  clearInterval(startDropbox);
   console.log("You lose");
   gameRunning = false;
 }
@@ -113,13 +118,15 @@ function collisionDetect() {
 }
 function boxCollisionDetect(droppingBox) {
   let box = droppingBox.getBoundingClientRect();
-
-  // console.log(droppingBox.classList)
   if (box.y > 555 && box.y < 570 && droppingBox.classList.contains("activer")) {
     console.log("COLLISION");
     gameLose();
     laneArray[activeLaneIdx].classList.add("collision");
-    return true;
+    setTimeout(function () {
+      const collided = document.querySelector(".collision");
+      console.log(collided);
+      collided.classList.add("collisioned");
+    }, 500);
   }
 }
 

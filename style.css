@@ -31,7 +31,7 @@ h1 {
   ); */
   border: 2px #8000807a solid;
   transition-property: all;
-  transition-duration: 1s;
+  transition-duration: 0.2s;
 }
 
 .playarea {
@@ -80,6 +80,14 @@ h1 {
   background-color: yellow;
   color: black;
 }
+#stop {
+  background-color: rgb(203, 89, 89);
+  color: white;
+  font-weight: 800;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 32px;
+}
 .active {
   background-color: yellow;
 }
@@ -95,7 +103,7 @@ h1 {
 }
 
 .collision {
-  background: rgba(255, 44, 44, 0.477);
+  background: rgb(255, 44, 44);
   /* background: rgba(255, 255, 255, 0); */
   /* background: linear-gradient(
     170deg,
@@ -105,11 +113,6 @@ h1 {
   border: 2px #b40e507a solid;
 }
 
-/* @keyframes fadeout {
-  0% {
-    opacity: 100%;
-  }
-  100% {
-    opacity: 0%;
-  }
-} */
+.collisioned {
+  background: rgb(255, 166, 166);
+}
