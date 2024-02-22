@@ -8,7 +8,7 @@ let fallSpeed = 1;
 let gameRunning = false;
 
 //on page load, grab highscore and print it//
-document.querySelector("#highscore").innerText = highscore;
+highScoreCounter();
 //------------------------------------------//
 
 function delay(milliseconds) {
@@ -18,8 +18,8 @@ function delay(milliseconds) {
 }
 
 fallArray.forEach((boxEntry) => {
-  score = 1;
   //this adds animationend to all the .fallbox
+  // score = 1;
   boxEntry.addEventListener("animationend", () => {
     boxEntry.classList.remove("fallingAnimation");
     score++;
@@ -38,31 +38,36 @@ function moveMe(e) {
     }
     playAreaArray.forEach((laneEntry) => {
       laneEntry.classList.remove("playactive");
+      laneEntry.innerHTML = `&nbsp;`;
     });
     activeLaneIdx--;
     playAreaArray[activeLaneIdx].classList.add("playactive");
-    laneActiver();
+    playAreaArray[activeLaneIdx].innerHTML = "&#9650;";
+    boxActiver();
   } else if (e.key === "ArrowRight") {
     if (activeLaneIdx === 2) {
       activeLaneIdx = -1;
     }
     playAreaArray.forEach((laneEntry) => {
       laneEntry.classList.remove("playactive");
+      laneEntry.innerHTML = `&nbsp;`;
     });
     activeLaneIdx++;
     playAreaArray[activeLaneIdx].classList.add("playactive");
-    laneActiver();
+    playAreaArray[activeLaneIdx].innerHTML = "&#9650;";
+    boxActiver();
   }
 }
 
 function laneActive() {
+  //colors the lane
   laneArray.forEach((lane) => {
     lane.classList.remove("laneactive");
   });
   laneArray[activeLaneIdx].classList.add("laneactive");
 }
-function laneActiver() {
-  //adds an "eventlistener" boxactive for aiding collision detection
+function boxActiver() {
+  //adds an "eventlistener" .boxactive for aiding collision detection
   laneActive();
   fallArray.forEach((laneEntry) => {
     laneEntry.classList.remove("boxactive");
@@ -84,6 +89,7 @@ function speedUp() {
   fallSpeed -= 0.05;
 }
 function dropBoxOnly() {
+  //animates the box falling
   fallArray[randomLane() - 1].classList.add("fallingAnimation");
   //   fallArray[randomLane() - 1].classList.add("fallingAnimation");
   //   setTimeout(function () {
@@ -98,10 +104,10 @@ function dropBoxOnly() {
 function gameStart() {
   gameRunning = true;
   score = 0;
-  laneActiver();
+  boxActiver();
   startBtn.classList.add("inactive");
   startBtn.removeEventListener("click", gameStart);
-  clearLaneCollision = document.querySelectorAll(".collision");
+  let clearLaneCollision = document.querySelectorAll(".collision");
   for (entry of clearLaneCollision) {
     entry.classList.remove("collision", "collisioned");
   }
@@ -118,14 +124,13 @@ function gameLose() {
   fallArray.forEach((laneEntry) => {
     laneEntry.classList.remove("fallingAnimation", "boxactive");
     laneEntry.removeAttribute("style");
-    // laneEntry.classList.remove("fallingAnimation");
   });
   clearInterval(startDropbox);
   clearInterval(startSpeed);
   fallSpeed = 1;
   console.log("You lose");
   highScoreCounter();
-
+  //prevents the player from mashing the button to start the game
   setTimeout(() => {
     startBtn.addEventListener("click", gameStart);
     startBtn.classList.remove("inactive");
@@ -133,8 +138,7 @@ function gameLose() {
   }, 750);
 }
 
-// const stopBtn = document.querySelector("#stop");
-// stopBtn.addEventListener("click", gameLose);
+//////////////////Collision Detection Logic/////////////////////////////
 
 function collisionDetect() {
   fallArray.forEach((box) => {
@@ -145,7 +149,7 @@ function boxCollisionDetect(droppingBox, colliderArea) {
   let box = droppingBox.getBoundingClientRect();
   if (
     box.y > colliderArea[0] &&
-    box.y < colliderArea[1] - 1 && //need -
+    box.y < colliderArea[1] - 1 &&
     droppingBox.classList.contains("boxactive")
   ) {
     // console.log("COLLISION");
@@ -161,10 +165,12 @@ function getPlayAreaY() {
   //returns an array
   let playArea = document.querySelector(".playarea");
   let boxDimension = playArea.getBoundingClientRect();
-  let yTop = boxDimension.y;
+  let yTop = boxDimension.y - boxDimension.height / 3;
   let yBottom = boxDimension.y + boxDimension.height;
   return [yTop, yBottom];
 }
+
+//Score and Highscore Logic//
 function scoreCounter() {
   scoreWriter = document.querySelector("#score");
   scoreWriter.innerText = score;
@@ -174,10 +180,42 @@ function highScoreCounter() {
   if (score > highscore) {
     highscore = score;
   }
-  scoreWriter = document.querySelector("#highscore");
-  scoreWriter.innerText = highscore;
-
   localStorage.setItem("highscore", highscore);
+  highscorePrinter = document.querySelector("#highscore");
+  highscorePrinter.innerText = "";
+  highscorePrinter.innerText = localStorage.getItem("highscore");
+}
+
+//highscore clear//
+function highscoreClick() {
+  highscoreClick = document.querySelector(".highscorecontainer");
+  highscoreClick.addEventListener("click", highscoreClearConfirm);
+}
+highscoreClick();
+function highscoreClearConfirm() {
+  highscoreClick.classList.add("clearconfirm"); //animate box to be bigger
+  highscorePrinter = document.querySelector("#highscore");
+  highscorePrinter.innerText = "Click again to reset";
+  highscoreClick.removeEventListener("click", highscoreClearConfirm);
+  highscoreClick.addEventListener("click", highscoreClear);
+  let cancelConfirm = document.querySelector("body");
+  cancelConfirm.addEventListener("click", cancelClick);
+}
+
+function highscoreClear() {
+  console.log("cleared highsocre");
+  localStorage.removeItem("highscore");
+  localStorage.setItem("highscore", 0);
+  highscoreClick.classList.remove("clearconfirm");
+  highscorePrinter.innerText = "0";
+  highScoreCounter;
+}
+
+function cancelClick() {
+  let cancelConfirm = document.querySelector("body");
+  cancelConfirm.removeEventListener("click", cancelClick);
+  highscoreClick.classList.remove("clearconfirm");
+  highScoreCounter();
 }
 //DEBUGGER ------------
 // const box1 = document.querySelector(".playarea");

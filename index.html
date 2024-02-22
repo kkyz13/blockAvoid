@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,13 +8,13 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>blockAvoid</h1>
+    <div class="title"><h1>blockAvoid</h1></div>
     <div class="container">
       <div class="gamegrid">
         <div class="lane laneactive"></div>
         <div class="lane"></div>
         <div class="lane"></div>
-        <div class="playarea playactive">&nbsp;</div>
+        <div class="playarea playactive">&#9650;</div>
         <div class="playarea">&nbsp;</div>
         <div class="playarea">&nbsp;</div>
         <div class="fallbox box1">&nbsp;</div>
@@ -33,14 +34,15 @@
         </div>
         <div class="highscorecontainer">
           HighScore: <br />
-          <p id="highscore">0</p>
+          <p id="highscore"></p>
+        </div>
+        <button class="start">Start</button>
+        <div class="instructions">
+          Avoid the falling blocks! Use your arrow keys to switch lanes!
         </div>
       </div>
     </div>
-    <button class="start">Start</button>
-    <div class="instructions">
-      Avoid the falling blocks! Use your arrow keys to switch lanes!
-    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
