@@ -8,13 +8,17 @@ body {
   /* background-color: rgb(58, 58, 58); */
   color: white;
 
-  background: linear-gradient(180deg, #312738, #5f5263);
+  background: linear-gradient(180deg, #312738, rgb(67, 49, 68));
   background-size: 400% 400%;
 
   animation: gradientBG 10s ease infinite;
   overflow: hidden;
 }
-
+@keyframes gradientBG {
+  0%{background-position:0% 36%}
+  50%{background-position:100% 65%}
+  100%{background-position:0% 36%}
+}
 .title {
   position: relative;
   z-index: 2;
@@ -33,6 +37,14 @@ h1 {
     transform: translateY(0);
   }
 }
+@keyframes confirm-slide-in {
+  0% {
+    transform: translateY(-80px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 .container {
   display: flex;
   /* align-items: center; */
@@ -43,7 +55,6 @@ h1 {
   flex-direction: column;
   flex-wrap: wrap;
   max-width: 2em;
-  align-self: self-start;
 }
 .gamegrid {
   display: grid;
@@ -58,7 +69,7 @@ h1 {
   margin-left: 2em;
   background-color: rgb(134, 134, 134);
   max-height: 2.5em;
-  min-width: 2em;
+  min-width: 1em;
   border-radius: 25px;
   animation: slide-in 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
   animation-delay: 75ms;
@@ -69,10 +80,12 @@ h1 {
   margin-left: 2em;
   background-color: rgb(134, 134, 134);
   max-height: 2.5em;
+  max-width: 5em;
   border-radius: 25px;
   animation: slide-in 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
   animation-delay: 125ms;
   transition-duration: 0.3s;
+  z-index: 2;
 }
 
 .highscorecontainer:hover {
@@ -81,8 +94,20 @@ h1 {
 }
 
 .clearconfirm {
+  margin-top: 2px;
+  padding: 5px;
+  margin-left: 2em;
+  background-color: rgb(150, 73, 73);
+  border-radius: 25px;
+  animation: confirm-slide-in 0.35s ease-out both;
+  transition-duration: 0.3s;
   max-height: 5em;
   margin-bottom: 2px;
+  z-index: 1;
+}
+.clearconfirm:hover{
+  background-color: rgb(255, 41, 41);
+  border-radius: 5px 10px 5px 10px;
 }
 .lane {
   width: 100px;
@@ -112,13 +137,16 @@ h1 {
 
 .fallbox {
   position: relative;
-  width: 100px;
+  /* width: 100px; */
   border-radius: 25%;
-  background-color: rgb(243, 0, 0);
+  background-color: rgb(243, 77, 0);
   opacity: 0;
   z-index: 1;
 }
-
+/* .big{
+grid-column: 1 / 4;
+background-color: rgb(210, 60, 255);
+} */
 .fallingAnimation {
   animation-name: falling;
   animation-duration: 1s;
@@ -141,14 +169,14 @@ h1 {
 }
 
 .start {
+  /* align-self: flex-end; */
   margin-top: 20px;
-
-  margin-left: 2em;
+  margin-left: 2.5em;
   background-color: rgb(176, 226, 101);
   color: black;
   font-weight: 800;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   padding: 15px 32px;
   transition-duration: 0.25s;
 }
@@ -172,6 +200,7 @@ h1 {
 .collision {
   background: rgb(255, 44, 44);
   border: 2px #b40e507a solid;
+
 }
 
 .collisioned {
@@ -180,4 +209,6 @@ h1 {
 
 .instructions {
   margin-left: 2em;
+  padding: 5px;
+  max-height: 120px;
 }

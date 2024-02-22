@@ -111,7 +111,7 @@ function gameStart() {
   for (entry of clearLaneCollision) {
     entry.classList.remove("collision", "collisioned");
   }
-  delay(1000);
+  delay(1000).then;
   setInterval(collisionDetect, 1);
   setInterval(scoreCounter, 200);
   startSpeed = setInterval(speedUp, 2000);
@@ -187,36 +187,35 @@ function highScoreCounter() {
 }
 
 //highscore clear//
+let waitingForClearClick = false
+
 function highscoreClick() {
   highscoreClick = document.querySelector(".highscorecontainer");
   highscoreClick.addEventListener("click", highscoreClearConfirm);
 }
 highscoreClick();
+
 function highscoreClearConfirm() {
-  highscoreClick.classList.add("clearconfirm"); //animate box to be bigger
-  highscorePrinter = document.querySelector("#highscore");
-  highscorePrinter.innerText = "Click again to reset";
+  confirmationPrinter = document.querySelector(".highscorecontainer");
+  div = document.createElement("div")
+  div.classList.add("clearconfirm")
+  confirmationPrinter.parentNode.insertBefore(div,confirmationPrinter.nextSibling)
+  confirmationText = document.querySelector(".clearconfirm")
   highscoreClick.removeEventListener("click", highscoreClearConfirm);
-  highscoreClick.addEventListener("click", highscoreClear);
-  let cancelConfirm = document.querySelector("body");
-  cancelConfirm.addEventListener("click", cancelClick);
+  confirmationText.innerText = "Click this to reset highscore"
+  confirmationText.addEventListener("click", clearHighscore)
 }
 
-function highscoreClear() {
+function clearHighscore(){
   console.log("cleared highsocre");
   localStorage.removeItem("highscore");
   localStorage.setItem("highscore", 0);
-  highscoreClick.classList.remove("clearconfirm");
   highscorePrinter.innerText = "0";
   highScoreCounter;
 }
+  // let cancelConfirm = document.querySelector("body");
+  // cancelConfirm.addEventListener("click", cancelClick);
 
-function cancelClick() {
-  let cancelConfirm = document.querySelector("body");
-  cancelConfirm.removeEventListener("click", cancelClick);
-  highscoreClick.classList.remove("clearconfirm");
-  highScoreCounter();
-}
 //DEBUGGER ------------
 // const box1 = document.querySelector(".playarea");
 // let rect = box1.getBoundingClientRect();
