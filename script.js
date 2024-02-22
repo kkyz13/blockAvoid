@@ -3,8 +3,13 @@ const laneArray = document.querySelectorAll(".lane"); // grabs the lanes as an a
 const playAreaArray = document.querySelectorAll(".playarea"); //grabs the playAreaArray bottom selector as an array
 let activeLaneIdx = 0;
 let score = 0;
+let highscore = localStorage.getItem("highscore") || 0;
 let fallSpeed = 1;
 let gameRunning = false;
+
+//on page load, grab highscore and print it//
+document.querySelector("#highscore").innerText = highscore;
+//------------------------------------------//
 
 function delay(milliseconds) {
   return new Promise((resolve) => {
@@ -30,25 +35,23 @@ function moveMe(e) {
   if (e.key === "ArrowLeft") {
     if (activeLaneIdx === 0) {
       activeLaneIdx = 3;
-    } 
-      playAreaArray.forEach((laneEntry) => {
-        laneEntry.classList.remove("playactive");
-      });
-      activeLaneIdx--;
-      playAreaArray[activeLaneIdx].classList.add("playactive");
-      laneActiver();
-    
+    }
+    playAreaArray.forEach((laneEntry) => {
+      laneEntry.classList.remove("playactive");
+    });
+    activeLaneIdx--;
+    playAreaArray[activeLaneIdx].classList.add("playactive");
+    laneActiver();
   } else if (e.key === "ArrowRight") {
     if (activeLaneIdx === 2) {
       activeLaneIdx = -1;
-    } 
-      playAreaArray.forEach((laneEntry) => {
-        laneEntry.classList.remove("playactive");
-      });
-      activeLaneIdx++;
-      playAreaArray[activeLaneIdx].classList.add("playactive");
-      laneActiver();
-    
+    }
+    playAreaArray.forEach((laneEntry) => {
+      laneEntry.classList.remove("playactive");
+    });
+    activeLaneIdx++;
+    playAreaArray[activeLaneIdx].classList.add("playactive");
+    laneActiver();
   }
 }
 
@@ -96,7 +99,7 @@ function gameStart() {
   gameRunning = true;
   score = 0;
   laneActiver();
-  startBtn.classList.add("inactive")
+  startBtn.classList.add("inactive");
   startBtn.removeEventListener("click", gameStart);
   clearLaneCollision = document.querySelectorAll(".collision");
   for (entry of clearLaneCollision) {
@@ -121,10 +124,11 @@ function gameLose() {
   clearInterval(startSpeed);
   fallSpeed = 1;
   console.log("You lose");
-  
+  highScoreCounter();
+
   setTimeout(() => {
     startBtn.addEventListener("click", gameStart);
-    startBtn.classList.remove("inactive")
+    startBtn.classList.remove("inactive");
     gameRunning = false;
   }, 750);
 }
@@ -141,7 +145,7 @@ function boxCollisionDetect(droppingBox, colliderArea) {
   let box = droppingBox.getBoundingClientRect();
   if (
     box.y > colliderArea[0] &&
-    box.y < colliderArea[1] &&
+    box.y < colliderArea[1] - 1 && //need -
     droppingBox.classList.contains("boxactive")
   ) {
     // console.log("COLLISION");
@@ -153,16 +157,27 @@ function boxCollisionDetect(droppingBox, colliderArea) {
     }, 500);
   }
 }
-function getPlayAreaY() { //returns an array
-  let playArea = document.querySelector(".playarea")
+function getPlayAreaY() {
+  //returns an array
+  let playArea = document.querySelector(".playarea");
   let boxDimension = playArea.getBoundingClientRect();
   let yTop = boxDimension.y;
-  let yBottom = boxDimension.y+boxDimension.height;
-  return [yTop,yBottom]
+  let yBottom = boxDimension.y + boxDimension.height;
+  return [yTop, yBottom];
 }
 function scoreCounter() {
   scoreWriter = document.querySelector("#score");
   scoreWriter.innerText = score;
+}
+
+function highScoreCounter() {
+  if (score > highscore) {
+    highscore = score;
+  }
+  scoreWriter = document.querySelector("#highscore");
+  scoreWriter.innerText = highscore;
+
+  localStorage.setItem("highscore", highscore);
 }
 //DEBUGGER ------------
 // const box1 = document.querySelector(".playarea");

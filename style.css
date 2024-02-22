@@ -5,8 +5,14 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  background-color: rgb(58, 58, 58);
+  /* background-color: rgb(58, 58, 58); */
   color: white;
+
+  background: linear-gradient(180deg, #312738, #5f5263);
+  background-size: 400% 400%;
+
+  animation: gradientBG 10s ease infinite;
+  overflow: hidden;
 }
 
 h1 {
@@ -28,13 +34,17 @@ h1 {
   /* align-items: center; */
   justify-content: center;
 }
+.contianercolumn {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
 .gamegrid {
   display: grid;
   margin-left: 100px;
   grid-template-columns: repeat(3, 100px);
   grid-template-rows: max-content;
   justify-content: center;
-  max-width: 312px;
 }
 
 .scorecontainer {
@@ -47,13 +57,14 @@ h1 {
   animation-delay: 75ms;
 }
 .highscorecontainer {
+  margin-top: 2px;
   padding: 20px;
   margin-left: 2em;
   background-color: rgb(134, 134, 134);
   max-height: 2.5em;
   border-radius: 25px;
   animation: slide-bottom 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
-  animation-delay: 100ms;
+  animation-delay: 125ms;
 }
 .lane {
   width: 100px;
@@ -93,7 +104,7 @@ h1 {
 .fallbox {
   width: 100px;
   border-radius: 25%;
-  background-color: rgba(243, 0, 0, 0.596);
+  background-color: rgb(243, 0, 0);
   opacity: 0;
 }
 
@@ -125,7 +136,7 @@ h1 {
   border: none;
   border-radius: 5px;
   padding: 15px 32px;
-  transition-duration: 0.25s
+  transition-duration: 0.25s;
 }
 .start:hover {
   background-color: yellow;
