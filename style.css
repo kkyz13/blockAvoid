@@ -8,10 +8,10 @@ body {
   /* background-color: rgb(58, 58, 58); */
   color: white;
 
-  background: linear-gradient(180deg, #312738, rgb(67, 49, 68));
+  background: linear-gradient(180deg, #312738, rgb(35, 39, 61));
   background-size: 400% 400%;
 
-  animation: gradientBG 10s ease infinite;
+  animation: gradientBG 5s ease infinite;
   overflow: hidden;
 }
 @keyframes gradientBG {
@@ -22,6 +22,8 @@ body {
 .title {
   position: relative;
   z-index: 2;
+  animation: confirm-slide-in 0.55s ease-out both;
+  animation-delay: 120ms;
 }
 h1 {
   margin: 5px;
@@ -31,7 +33,7 @@ h1 {
 
 @keyframes slide-in {
   0% {
-    transform: translateY(-200px);
+    transform: translateY(-220px);
   }
   100% {
     transform: translateY(0);
@@ -116,11 +118,16 @@ h1 {
   border: 2px #8000807a solid;
   transition-property: all;
   transition-duration: 0.2s;
+  user-select: none;
+  animation: confirm-slide-in 0.25s ease-out both;
 }
-
+.lane:hover{
+color: rgb(87, 87, 87);
+}
 .laneactive {
   background: rgb(251, 255, 200);
   border: 2px #b40e507a solid;
+  color: black
 }
 .playarea {
   width: 100px;
@@ -129,6 +136,7 @@ h1 {
   background-color: rgb(71, 36, 66);
   transition-property: background-color;
   transition-duration: 0.2s;
+  animation: confirm-slide-in 0.25s ease-out both;
 }
 
 .playactive {

@@ -57,6 +57,36 @@ function moveMe(e) {
     playAreaArray[activeLaneIdx].innerHTML = "&#9650;";
     boxActiver();
   }
+  else if (e.key === "q"){
+    activeLaneIdx = 0
+    playAreaArray.forEach((laneEntry) => {
+      laneEntry.classList.remove("playactive");
+      laneEntry.innerHTML = `&nbsp;`;
+    });
+    playAreaArray[activeLaneIdx].classList.add("playactive");
+    playAreaArray[activeLaneIdx].innerHTML = "&#9650;";
+    boxActiver();
+  }
+  else if (e.key === "w"){
+    activeLaneIdx = 1
+    playAreaArray.forEach((laneEntry) => {
+      laneEntry.classList.remove("playactive");
+      laneEntry.innerHTML = `&nbsp;`;
+    });
+    playAreaArray[activeLaneIdx].classList.add("playactive");
+    playAreaArray[activeLaneIdx].innerHTML = "&#9650;";
+    boxActiver();
+  }
+  else if (e.key === "e"){
+    activeLaneIdx = 2
+    playAreaArray.forEach((laneEntry) => {
+      laneEntry.classList.remove("playactive");
+      laneEntry.innerHTML = `&nbsp;`;
+    });
+    playAreaArray[activeLaneIdx].classList.add("playactive");
+    playAreaArray[activeLaneIdx].innerHTML = "&#9650;";
+    boxActiver();
+  }
 }
 
 function laneActive() {
@@ -91,16 +121,11 @@ function speedUp() {
 function dropBoxOnly() {
   //animates the box falling
   fallArray[randomLane() - 1].classList.add("fallingAnimation");
-  //   fallArray[randomLane() - 1].classList.add("fallingAnimation");
-  //   setTimeout(function () {
-  //     AnimRemoval();
-  //   }, 1000);
 }
 
-// setTimeout(() => {
-//   fallArray[randomLane() - 1].classList.remove("fallingAnimation");
-// }, 1000);
+function laneText(){
 
+}
 function gameStart() {
   gameRunning = true;
   score = 0;
@@ -148,7 +173,7 @@ function collisionDetect() {
 function boxCollisionDetect(droppingBox, colliderArea) {
   let box = droppingBox.getBoundingClientRect();
   if (
-    box.y > colliderArea[0] &&
+    box.y > colliderArea[0] + box.height/3 &&
     box.y < colliderArea[1] - 1 &&
     droppingBox.classList.contains("boxactive")
   ) {
@@ -165,7 +190,7 @@ function getPlayAreaY() {
   //returns an array
   let playArea = document.querySelector(".playarea");
   let boxDimension = playArea.getBoundingClientRect();
-  let yTop = boxDimension.y - boxDimension.height / 3;
+  let yTop = boxDimension.y - boxDimension.height;
   let yBottom = boxDimension.y + boxDimension.height;
   return [yTop, yBottom];
 }
@@ -186,9 +211,7 @@ function highScoreCounter() {
   highscorePrinter.innerText = localStorage.getItem("highscore");
 }
 
-//highscore clear//
-let waitingForClearClick = false
-
+//highscore clear logic//
 function highscoreClick() {
   highscoreClick = document.querySelector(".highscorecontainer");
   highscoreClick.addEventListener("click", highscoreClearConfirm);
@@ -208,14 +231,12 @@ function highscoreClearConfirm() {
 
 function clearHighscore(){
   console.log("cleared highsocre");
-  localStorage.removeItem("highscore");
+  localStorage.clear();
   localStorage.setItem("highscore", 0);
   highscorePrinter.innerText = "0";
+  highscore = 0
   highScoreCounter;
 }
-  // let cancelConfirm = document.querySelector("body");
-  // cancelConfirm.addEventListener("click", cancelClick);
-
 //DEBUGGER ------------
 // const box1 = document.querySelector(".playarea");
 // let rect = box1.getBoundingClientRect();
