@@ -31,6 +31,7 @@
 
 ## Reference
 
--[Idea of using getBoundingClientRect()](https://stackoverflow.com/questions/12066870/how-to-check-if-an-element-is-overlapping-other-elements)
--[A lot of reading about CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations#using_animation_events)
--[The easter egg inspiration](https://stackoverflow.com/questions/19970081/adding-depth-to-a-2d-rotated-element)
+- [Idea of using getBoundingClientRect() for collision detection](https://stackoverflow.com/questions/12066870/how-to-check-if-an-element-is-overlapping-other-elements)
+- [A lot of reading about CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations#using_animation_events)
+- [General Idea of using setInterval() to poll collision detection](https://stackoverflow.com/questions/4230029/jquery-javascript-collision-detection)
+- [The easter egg inspiration](https://stackoverflow.com/questions/19970081/adding-depth-to-a-2d-rotated-element)
