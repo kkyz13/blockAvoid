@@ -35,3 +35,4 @@
 - [A lot of reading about CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations#using_animation_events)
 - [General Idea of using setInterval() to poll collision detection](https://stackoverflow.com/questions/4230029/jquery-javascript-collision-detection)
 - [The easter egg inspiration](https://stackoverflow.com/questions/19970081/adding-depth-to-a-2d-rotated-element)
+- [A lot of the fancy animation is referencing this curve for how it enters into the page](https://cubic-bezier.com/#.17,.67,.83,.67)
