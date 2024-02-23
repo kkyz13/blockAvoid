@@ -20,6 +20,7 @@
 - Spacebar starts the game so you don't have to use your mouse
 - Lane selection can be quickly changed by using the Q, W or E keys.
 - You can clear the highscore by clicking on it, then clicking on the confirmation box that appears
+- There is 1 easter egg somewhere on the page
 
 ## Next Steps
 
@@ -27,3 +28,9 @@
 - Invert collision logic and it is almost a rhythm game
 - I wanted to add a 'all lane' obstacle requiring spacebar to hop over the obstacle, but the game ends too quickly and is hard enough as it is; which leads to...
 - Difficulty settings: so people can choose a slower speed
+
+## Reference
+
+-[Idea of using getBoundingClientRect()](https://stackoverflow.com/questions/12066870/how-to-check-if-an-element-is-overlapping-other-elements)
+-[A lot of reading about CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations#using_animation_events)
+-[The easter egg inspiration](https://stackoverflow.com/questions/19970081/adding-depth-to-a-2d-rotated-element)
