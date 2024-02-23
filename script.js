@@ -173,11 +173,10 @@ function collisionDetect() {
 function boxCollisionDetect(droppingBox, colliderArea) {
   let box = droppingBox.getBoundingClientRect();
   if (
-    box.y > colliderArea[0] + box.height/3 &&
-    box.y < colliderArea[1] - 1 &&
+    box.y > colliderArea[0] + box.height/3 && //the y values are slightly modified to make the game feel more fair
+    box.y < colliderArea[1] - box.height/4 && //our eyes perceives movement but reaches our brain slightly later
     droppingBox.classList.contains("boxactive")
   ) {
-    // console.log("COLLISION");
     gameLose();
     laneArray[activeLaneIdx].classList.add("collision");
     setTimeout(function () {
@@ -236,6 +235,12 @@ function clearHighscore(){
   highscorePrinter.innerText = "0";
   highscore = 0
   highScoreCounter;
+}
+
+easterEgg3d = document.querySelector(".title").addEventListener("click",threeDfy)
+
+function threeDfy(){
+  document.querySelector(".gamegrid").classList.toggle("gamegrid3d")
 }
 //DEBUGGER ------------
 // const box1 = document.querySelector(".playarea");

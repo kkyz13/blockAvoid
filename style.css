@@ -51,6 +51,7 @@ h1 {
   display: flex;
   /* align-items: center; */
   justify-content: center;
+
 }
 .containercolumn {
   display: flex;
@@ -64,8 +65,12 @@ h1 {
   grid-template-columns: repeat(3, 100px);
   grid-template-rows: max-content;
   justify-content: center;
+  transition-timing-function: ease-out;
+  transition-duration: 0.45s;
 }
-
+.gamegrid3d{
+  transform: perspective(240px) rotateX(15deg) translateY(-85px);
+}
 .scorecontainer {
   padding: 20px;
   margin-left: 2em;
@@ -75,6 +80,10 @@ h1 {
   border-radius: 25px;
   animation: slide-in 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
   animation-delay: 75ms;
+  transition-duration: 0.3s;
+}
+.scorecontainer:hover {
+  border-radius: 20px;
 }
 .highscorecontainer {
   margin-top: 2px;
@@ -150,6 +159,7 @@ color: rgb(87, 87, 87);
   background-color: rgb(243, 77, 0);
   opacity: 0;
   z-index: 1;
+  shape-rendering: optimizeSpeed;
 }
 /* .big{
 grid-column: 1 / 4;
@@ -191,18 +201,23 @@ background-color: rgb(210, 60, 255);
 .start:hover {
   background-color: yellow;
   color: black;
+  border-radius: 10px;
 }
-
 .inactive {
   background-color: rgb(110, 110, 110);
 }
-#stop {
-  background-color: rgb(203, 89, 89);
-  color: white;
-  font-weight: 800;
-  border: none;
-  border-radius: 5px;
-  padding: 15px 32px;
+
+.message{
+  text-align: center;
+  padding: 0 50px;
+  margin: auto;
+  width: 10%;
+  top: 25%;
+  background-color: #af141c;
+  position: absolute;
+  z-index: 4;
+  border-radius: 3px;
+  visibility: hidden;
 }
 
 .collision {
