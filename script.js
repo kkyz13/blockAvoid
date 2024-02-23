@@ -129,6 +129,7 @@ function laneText(){
 function gameStart() {
   gameRunning = true;
   score = 0;
+  messageBoxOut()
   boxActiver();
   startBtn.classList.add("inactive");
   startBtn.removeEventListener("click", gameStart);
@@ -136,7 +137,7 @@ function gameStart() {
   for (entry of clearLaneCollision) {
     entry.classList.remove("collision", "collisioned");
   }
-  delay(1000).then;
+
   setInterval(collisionDetect, 1);
   setInterval(scoreCounter, 200);
   startSpeed = setInterval(speedUp, 2000);
@@ -154,6 +155,7 @@ function gameLose() {
   clearInterval(startSpeed);
   fallSpeed = 1;
   console.log("You lose");
+
   highScoreCounter();
   //prevents the player from mashing the button to start the game
   setTimeout(() => {
@@ -163,6 +165,21 @@ function gameLose() {
   }, 750);
 }
 
+function messageBoxIn(){
+  message = document.querySelector(".message");
+  message.style.visibility = "visible";
+  message.classList.add("messagein");
+}
+
+function messageBoxOut(){
+  message = document.querySelector(".message");
+  message.classList.remove("messagein");
+  message.classList.add("messageout");
+  setTimeout(() => {
+    message.classList.remove("messagein","messageout")
+    message.style.visibility = "hidden"
+  }, 500);
+}
 //////////////////Collision Detection Logic/////////////////////////////
 
 function collisionDetect() {
@@ -183,6 +200,7 @@ function boxCollisionDetect(droppingBox, colliderArea) {
       const collided = document.querySelector(".collision");
       collided.classList.add("collisioned");
     }, 500);
+    messageBoxIn() 
   }
 }
 function getPlayAreaY() {
@@ -229,7 +247,6 @@ function highscoreClearConfirm() {
 }
 
 function clearHighscore(){
-  console.log("cleared highsocre");
   localStorage.clear();
   localStorage.setItem("highscore", 0);
   highscorePrinter.innerText = "0";
@@ -237,7 +254,19 @@ function clearHighscore(){
   highScoreCounter;
 }
 
-easterEgg3d = document.querySelector(".title").addEventListener("click",threeDfy)
+function instructionsHider(){
+instructionBox = document.querySelector(".instructionsbox")
+if (instructionBox.innerText != "Instructions"){
+  instructionBox.classList.add("instructionboxscale")
+  instructionBox.innerText = "Instructions"
+} else {
+
+  instructionBox.innerHTML = "<b>Avoid</b> the falling blocks! Use your arrow keys to switch lanes!"
+}
+}
+
+let instructionBox = document.querySelector(".instructionsbox").addEventListener("click",instructionsHider)
+let easterEgg3d = document.querySelector(".title").addEventListener("click",threeDfy)
 
 function threeDfy(){
   document.querySelector(".gamegrid").classList.toggle("gamegrid3d")

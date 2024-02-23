@@ -34,9 +34,11 @@ h1 {
 @keyframes slide-in {
   0% {
     transform: translateY(-220px);
+    opacity: 0;
   }
   100% {
     transform: translateY(0);
+    opacity: 1;
   }
 }
 @keyframes confirm-slide-in {
@@ -78,7 +80,7 @@ h1 {
   max-height: 2.5em;
   min-width: 1em;
   border-radius: 25px;
-  animation: slide-in 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
+  animation: slide-in 0.5s cubic-bezier(.18,.66,.49,1.01) both;
   animation-delay: 75ms;
   transition-duration: 0.3s;
 }
@@ -93,10 +95,10 @@ h1 {
   max-height: 2.5em;
   max-width: 5em;
   border-radius: 25px;
-  animation: slide-in 0.5s cubic-bezier(0.48, 0.07, 0.58, 1.45) both;
+  animation: slide-in 0.5s cubic-bezier(.18,.66,.49,1.01) both;
   animation-delay: 125ms;
   transition-duration: 0.3s;
-  z-index: 2;
+  z-index: 3;
 }
 
 .highscorecontainer:hover {
@@ -114,11 +116,36 @@ h1 {
   transition-duration: 0.3s;
   max-height: 5em;
   margin-bottom: 2px;
-  z-index: 1;
+  z-index: 2;
 }
 .clearconfirm:hover{
   background-color: rgb(255, 41, 41);
   border-radius: 5px 10px 5px 10px;
+}
+
+
+.instructionsbox {
+  margin-top: 2px;
+  padding: 20px;
+  margin-left: 2em;
+  background-color: rgb(89, 96, 156);;
+  padding: 5px;
+  max-height: 120px;
+  border-radius: 25px;
+  transition-duration: 0.3s;
+  animation: slide-in 0.5s cubic-bezier(.18,.66,.49,1.01) both;
+  animation-delay: 225ms;
+  z-index: 1;
+}
+.instructionsbox:hover {
+  background: rgb(194, 222, 255);
+  border-radius: 15px;
+  color: black
+}
+
+.instructionsboxscale {
+  max-height:30px;
+  
 }
 .lane {
   width: 100px;
@@ -187,16 +214,17 @@ background-color: rgb(210, 60, 255);
 }
 
 .start {
-  /* align-self: flex-end; */
-  margin-top: 20px;
+  margin-top: 2px;
   margin-left: 2.5em;
   background-color: rgb(176, 226, 101);
   color: black;
   font-weight: 800;
   border: none;
-  border-radius: 15px;
+  border-radius: 25px;
   padding: 15px 32px;
   transition-duration: 0.25s;
+  animation: slide-in 0.5s cubic-bezier(.18,.66,.49,1.01) both;
+  animation-delay: 275ms;
 }
 .start:hover {
   background-color: yellow;
@@ -208,18 +236,66 @@ background-color: rgb(210, 60, 255);
 }
 
 .message{
+  font-size: 32pt;
+  font-style: italic;
+  font-weight: bolder;
   text-align: center;
-  padding: 0 50px;
-  margin: auto;
-  width: 10%;
+  padding: 0 25px;
+  margin: 0;
+  width: 250px;
   top: 25%;
-  background-color: #af141c;
+  white-space: nowrap;
+  background-color: #dd2d2d;
   position: absolute;
   z-index: 4;
-  border-radius: 3px;
+  border-radius: 10px;
   visibility: hidden;
+  overflow: hidden;
+}
+.messagetext{
+  animation: marquee 3.14s linear infinite;
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(-100px);
+  }
+  100% {
+    transform: translateX(-542px);
+  }
+}
+.messagein{
+  animation-name: slide-up;
+  animation-duration: 0.45s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
 }
 
+@keyframes slide-up {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.messageout{
+  animation-name: slide-up-away;
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes slide-up-away {
+  0% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
 .collision {
   background: rgb(255, 44, 44);
   border: 2px #b40e507a solid;
@@ -230,8 +306,3 @@ background-color: rgb(210, 60, 255);
   background: rgba(255, 114, 114, 0.785);
 }
 
-.instructions {
-  margin-left: 2em;
-  padding: 5px;
-  max-height: 120px;
-}
