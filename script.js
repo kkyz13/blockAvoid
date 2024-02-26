@@ -11,15 +11,14 @@ let gameRunning = false;
 highScoreCounter();
 //------------------------------------------//
 
-function delay(milliseconds) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, milliseconds);
-  });
-}
+// function delay(milliseconds) {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, milliseconds);
+//   });
+// }
 
 fallArray.forEach((boxEntry) => {
-  //this adds animationend to all the .fallbox
-  // score = 1;
+  //this adds animationend to all the .fallbox, the fallingAnimation CSS property would only be removed when the box fully falls
   boxEntry.addEventListener("animationend", () => {
     boxEntry.classList.remove("fallingAnimation");
     score++;
@@ -56,9 +55,8 @@ function moveMe(e) {
     playAreaArray[activeLaneIdx].classList.add("playactive");
     playAreaArray[activeLaneIdx].innerHTML = "&#9650;";
     boxActiver();
-  }
-  else if (e.key === "q"){
-    activeLaneIdx = 0
+  } else if (e.key === "q") {
+    activeLaneIdx = 0;
     playAreaArray.forEach((laneEntry) => {
       laneEntry.classList.remove("playactive");
       laneEntry.innerHTML = `&nbsp;`;
@@ -66,9 +64,8 @@ function moveMe(e) {
     playAreaArray[activeLaneIdx].classList.add("playactive");
     playAreaArray[activeLaneIdx].innerHTML = "&#9650;";
     boxActiver();
-  }
-  else if (e.key === "w"){
-    activeLaneIdx = 1
+  } else if (e.key === "w") {
+    activeLaneIdx = 1;
     playAreaArray.forEach((laneEntry) => {
       laneEntry.classList.remove("playactive");
       laneEntry.innerHTML = `&nbsp;`;
@@ -76,9 +73,8 @@ function moveMe(e) {
     playAreaArray[activeLaneIdx].classList.add("playactive");
     playAreaArray[activeLaneIdx].innerHTML = "&#9650;";
     boxActiver();
-  }
-  else if (e.key === "e"){
-    activeLaneIdx = 2
+  } else if (e.key === "e") {
+    activeLaneIdx = 2;
     playAreaArray.forEach((laneEntry) => {
       laneEntry.classList.remove("playactive");
       laneEntry.innerHTML = `&nbsp;`;
@@ -123,13 +119,11 @@ function dropBoxOnly() {
   fallArray[randomLane() - 1].classList.add("fallingAnimation");
 }
 
-function laneText(){
-
-}
+function laneText() {}
 function gameStart() {
   gameRunning = true;
   score = 0;
-  messageBoxOut()
+  messageBoxOut();
   boxActiver();
   startBtn.classList.add("inactive");
   startBtn.removeEventListener("click", gameStart);
@@ -165,19 +159,19 @@ function gameLose() {
   }, 750);
 }
 
-function messageBoxIn(){
+function messageBoxIn() {
   message = document.querySelector(".message");
   message.style.visibility = "visible";
   message.classList.add("messagein");
 }
 
-function messageBoxOut(){
+function messageBoxOut() {
   message = document.querySelector(".message");
   message.classList.remove("messagein");
   message.classList.add("messageout");
   setTimeout(() => {
-    message.classList.remove("messagein","messageout")
-    message.style.visibility = "hidden"
+    message.classList.remove("messagein", "messageout");
+    message.style.visibility = "hidden";
   }, 500);
 }
 //////////////////Collision Detection Logic/////////////////////////////
@@ -190,8 +184,8 @@ function collisionDetect() {
 function boxCollisionDetect(droppingBox, colliderArea) {
   let box = droppingBox.getBoundingClientRect();
   if (
-    box.y > colliderArea[0] + box.height/3 && //the y values are slightly modified to make the game feel more fair
-    box.y < colliderArea[1] - box.height/4 && //our eyes perceives movement but reaches our brain slightly later
+    box.y > colliderArea[0] + box.height / 3 && //the y values are slightly modified to make the game feel more fair
+    box.y < colliderArea[1] - box.height / 4 && //our eyes perceives movement but reaches our brain slightly later
     droppingBox.classList.contains("boxactive")
   ) {
     gameLose();
@@ -200,7 +194,7 @@ function boxCollisionDetect(droppingBox, colliderArea) {
       const collided = document.querySelector(".collision");
       collided.classList.add("collisioned");
     }, 500);
-    messageBoxIn() 
+    messageBoxIn();
   }
 }
 function getPlayAreaY() {
@@ -229,47 +223,59 @@ function highScoreCounter() {
 }
 
 //highscore clear logic//
-function highscoreClick() {
+function attachHighscoreClick() {
+  //don't variable shadow with your functions
   highscoreClick = document.querySelector(".highscorecontainer");
   highscoreClick.addEventListener("click", highscoreClearConfirm);
 }
-highscoreClick();
 
 function highscoreClearConfirm() {
   confirmationPrinter = document.querySelector(".highscorecontainer");
-  div = document.createElement("div")
-  div.classList.add("clearconfirm")
-  confirmationPrinter.parentNode.insertBefore(div,confirmationPrinter.nextSibling)
-  confirmationText = document.querySelector(".clearconfirm")
+  div = document.createElement("div");
+  div.classList.add("clearconfirm");
+  confirmationPrinter.parentNode.insertBefore(
+    div,
+    confirmationPrinter.nextSibling
+  );
+  confirmationText = document.querySelector(".clearconfirm");
   highscoreClick.removeEventListener("click", highscoreClearConfirm);
-  confirmationText.innerText = "Click this to reset highscore"
-  confirmationText.addEventListener("click", clearHighscore)
+  confirmationText.innerText = "Click this to reset highscore";
+  confirmationText.addEventListener("click", clearHighscore);
 }
 
-function clearHighscore(){
+function clearHighscore() {
   localStorage.clear();
   localStorage.setItem("highscore", 0);
   highscorePrinter.innerText = "0";
-  highscore = 0
+  highscore = 0;
   highScoreCounter;
+  removeConfirmBox = document.querySelector(".clearconfirm");
+  removeConfirmBox.remove();
+  attachHighscoreClick();
 }
 
-function instructionsHider(){
-instructionBox = document.querySelector(".instructionsbox")
-if (instructionBox.innerText != "Instructions"){
-  instructionBox.classList.add("instructionboxscale")
-  instructionBox.innerText = "Instructions"
-} else {
+attachHighscoreClick();
 
-  instructionBox.innerHTML = "<b>Avoid</b> the falling blocks! Use your arrow keys to switch lanes!"
+function instructionsHider() {
+  instructionBox = document.querySelector(".instructionsbox");
+  if (instructionBox.innerText != "Instructions") {
+    instructionBox.classList.add("instructionboxscale");
+    instructionBox.innerText = "Instructions";
+  } else {
+    instructionBox.innerHTML =
+      "<b>Avoid</b> the falling blocks! Use your arrow keys to switch lanes!";
+  }
 }
-}
 
-let instructionBox = document.querySelector(".instructionsbox").addEventListener("click",instructionsHider)
-let easterEgg3d = document.querySelector(".title").addEventListener("click",threeDfy)
+let instructionBox = document
+  .querySelector(".instructionsbox")
+  .addEventListener("click", instructionsHider);
+let easterEgg3d = document
+  .querySelector(".title")
+  .addEventListener("click", threeDfy);
 
-function threeDfy(){
-  document.querySelector(".gamegrid").classList.toggle("gamegrid3d")
+function threeDfy() {
+  document.querySelector(".gamegrid").classList.toggle("gamegrid3d");
 }
 //DEBUGGER ------------
 // const box1 = document.querySelector(".playarea");
