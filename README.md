@@ -1,6 +1,6 @@
 # blockAvoid 
  A Game by Kenneth Koh
- 
+ Live Link: https://kkyz13.github.io/blockAvoid/
 ## For General Assembly SEI-49
 
  It's like a rhythm game but in reverse. **AVOID** the blocks with your arrow keys. 
