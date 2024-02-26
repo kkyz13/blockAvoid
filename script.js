@@ -11,12 +11,6 @@ let gameRunning = false;
 highScoreCounter();
 //------------------------------------------//
 
-// function delay(milliseconds) {
-//   return new Promise((resolve) => {
-//     setTimeout(resolve, milliseconds);
-//   });
-// }
-
 fallArray.forEach((boxEntry) => {
   //this adds animationend to all the .fallbox, the fallingAnimation CSS property would only be removed when the box fully falls
   boxEntry.addEventListener("animationend", () => {
@@ -119,7 +113,6 @@ function dropBoxOnly() {
   fallArray[randomLane() - 1].classList.add("fallingAnimation");
 }
 
-function laneText() {}
 function gameStart() {
   gameRunning = true;
   score = 0;

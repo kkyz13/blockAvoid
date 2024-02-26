@@ -15,9 +15,15 @@ body {
   overflow: hidden;
 }
 @keyframes gradientBG {
-  0%{background-position:0% 36%}
-  50%{background-position:100% 65%}
-  100%{background-position:0% 36%}
+  0% {
+    background-position: 0% 36%;
+  }
+  50% {
+    background-position: 100% 65%;
+  }
+  100% {
+    background-position: 0% 36%;
+  }
 }
 .title {
   position: relative;
@@ -53,7 +59,6 @@ h1 {
   display: flex;
   /* align-items: center; */
   justify-content: center;
-
 }
 .containercolumn {
   display: flex;
@@ -70,7 +75,7 @@ h1 {
   transition-timing-function: ease-out;
   transition-duration: 0.45s;
 }
-.gamegrid3d{
+.gamegrid3d {
   transform: perspective(240px) rotateX(15deg) translateY(-85px);
 }
 .scorecontainer {
@@ -80,7 +85,7 @@ h1 {
   max-height: 2.5em;
   min-width: 1em;
   border-radius: 25px;
-  animation: slide-in 0.5s cubic-bezier(.18,.66,.49,1.01) both;
+  animation: slide-in 0.5s cubic-bezier(0.18, 0.66, 0.49, 1.01) both;
   animation-delay: 75ms;
   transition-duration: 0.3s;
 }
@@ -95,7 +100,7 @@ h1 {
   max-height: 2.5em;
   max-width: 5em;
   border-radius: 25px;
-  animation: slide-in 0.5s cubic-bezier(.18,.66,.49,1.01) both;
+  animation: slide-in 0.5s cubic-bezier(0.18, 0.66, 0.49, 1.01) both;
   animation-delay: 125ms;
   transition-duration: 0.3s;
   z-index: 3;
@@ -118,34 +123,32 @@ h1 {
   margin-bottom: 2px;
   z-index: 2;
 }
-.clearconfirm:hover{
+.clearconfirm:hover {
   background-color: rgb(255, 41, 41);
   border-radius: 5px 10px 5px 10px;
 }
-
 
 .instructionsbox {
   margin-top: 2px;
   padding: 20px;
   margin-left: 2em;
-  background-color: rgb(89, 96, 156);;
+  background-color: rgb(89, 96, 156);
   padding: 5px;
   max-height: 120px;
   border-radius: 25px;
   transition-duration: 0.3s;
-  animation: slide-in 0.5s cubic-bezier(.18,.66,.49,1.01) both;
+  animation: slide-in 0.5s cubic-bezier(0.18, 0.66, 0.49, 1.01) both;
   animation-delay: 225ms;
   z-index: 1;
 }
 .instructionsbox:hover {
   background: rgb(194, 222, 255);
   border-radius: 15px;
-  color: black
+  color: black;
 }
 
 .instructionsboxscale {
-  max-height:30px;
-  
+  max-height: 30px;
 }
 .lane {
   width: 100px;
@@ -157,13 +160,13 @@ h1 {
   user-select: none;
   animation: confirm-slide-in 0.25s ease-out both;
 }
-.lane:hover{
-color: rgb(87, 87, 87);
+.lane:hover {
+  color: rgb(87, 87, 87);
 }
 .laneactive {
   background: rgb(251, 255, 200);
   border: 2px #b40e507a solid;
-  color: black
+  color: black;
 }
 .playarea {
   width: 100px;
@@ -181,7 +184,7 @@ color: rgb(87, 87, 87);
 
 .fallbox {
   position: relative;
-  /* width: 100px; */
+
   border-radius: 25%;
   background-color: rgb(243, 77, 0);
   opacity: 0;
@@ -223,7 +226,7 @@ background-color: rgb(210, 60, 255);
   border-radius: 25px;
   padding: 15px 32px;
   transition-duration: 0.25s;
-  animation: slide-in 0.5s cubic-bezier(.18,.66,.49,1.01) both;
+  animation: slide-in 0.5s cubic-bezier(0.18, 0.66, 0.49, 1.01) both;
   animation-delay: 275ms;
 }
 .start:hover {
@@ -235,7 +238,7 @@ background-color: rgb(210, 60, 255);
   background-color: rgb(110, 110, 110);
 }
 
-.message{
+.message {
   font-size: 32pt;
   font-style: italic;
   font-weight: bolder;
@@ -252,7 +255,7 @@ background-color: rgb(210, 60, 255);
   visibility: hidden;
   overflow: hidden;
 }
-.messagetext{
+.messagetext {
   animation: marquee 3.14s linear infinite;
 }
 @keyframes marquee {
@@ -263,7 +266,7 @@ background-color: rgb(210, 60, 255);
     transform: translateX(-542px);
   }
 }
-.messagein{
+.messagein {
   animation-name: slide-up;
   animation-duration: 0.45s;
   animation-timing-function: ease-out;
@@ -280,7 +283,7 @@ background-color: rgb(210, 60, 255);
     opacity: 1;
   }
 }
-.messageout{
+.messageout {
   animation-name: slide-up-away;
   animation-duration: 0.25s;
   animation-timing-function: ease-out;
@@ -299,10 +302,8 @@ background-color: rgb(210, 60, 255);
 .collision {
   background: rgb(255, 44, 44);
   border: 2px #b40e507a solid;
-
 }
 
 .collisioned {
   background: rgba(255, 114, 114, 0.785);
 }
-
