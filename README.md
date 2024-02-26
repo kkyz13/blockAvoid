@@ -38,3 +38,4 @@
 - [General Idea of using setInterval() to poll collision detection](https://stackoverflow.com/questions/4230029/jquery-javascript-collision-detection)
 - [The easter egg inspiration](https://stackoverflow.com/questions/19970081/adding-depth-to-a-2d-rotated-element)
 - [A lot of the fancy animation is referencing this curve for how it enters into the page](https://cubic-bezier.com/#.17,.67,.83,.67)
+- [a little help from BlackBox AI teaching me not to variable shadow with a function causing a bug with the high score behaviour](https://www.blackbox.ai)
