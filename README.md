@@ -3,9 +3,10 @@
  
 ## For General Assembly SEI-49
 
- It's like a rhythm game but in reverse. **AVOID** the blocks with your arrow keys.
+ It's like a rhythm game but in reverse. **AVOID** the blocks with your arrow keys. 
+ 
+<img src="https://github.com/kkyz13/blockAvoid/assets/155720573/375b0bfd-d571-4962-81e7-a4aac7b6ebd1" alt="Gamescreen" width="500px">
 
-![placeholder](https://i.imgur.com/FR9Vzig.jpg)
 
 ## Technologies:
 
@@ -13,10 +14,11 @@
 
 ## How to Play
 
+![Instructions](https://github.com/kkyz13/blockAvoid/assets/155720573/9894f65d-61da-4227-9ef2-2fbacdc8f88e)
 
-![instructional image](http://notworking.com/soako)
 
- **Use the arrow keys** to change the lane being selected. There are extra features not obvious on the front but I try to make it as intuitive as possible:
+
+ **Use the arrow keys** (← or →) to change the lane being selected. There are extra features not obvious on the front but I try to make it as intuitive as possible:
 - Spacebar starts the game so you don't have to use your mouse
 - Lane selection can be quickly changed by using the Q, W or E keys.
 - You can clear the highscore by clicking on it, then clicking on the confirmation box that appears
